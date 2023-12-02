@@ -3,11 +3,24 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import { Student } from "./models/studentModel.js";
 import studentsRoute from "./routes/studentsRoute.js";
+import cors from "cors";
 
 const app = express();
 
 // Middleware for parsing req body
 app.use(express.json());
+
+// Middleware for Handling CORS POLICY
+// Option 1: Allow Origins with Default of cors(*)
+app.use(cors());
+// Option 2: Allow Custom Origins
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type'],
+//   })
+// );
 
 app.get("/", (req, res) => {
   console.log(req.body);

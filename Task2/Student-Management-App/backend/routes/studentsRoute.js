@@ -1,7 +1,7 @@
-import  express  from "express";
+import express from "express";
 import { Student } from "../models/studentModel.js";
 
-const router = express.Router()
+const router = express.Router();
 
 // Route for Save a new Student (dddddd)
 router.post("/", async (req, res) => {
@@ -27,20 +27,6 @@ router.post("/", async (req, res) => {
 });
 
 // Route for Get All STUDENT from DB
-router.get("//:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const student = await Student.findById(id);
-
-    return res.status(200).json(student);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send({ message: err.message });
-  }
-});
-
-// Route for Get one STUDENT By ID
 router.get("/", async (req, res) => {
   try {
     const students = await Student.find({});
@@ -49,6 +35,20 @@ router.get("/", async (req, res) => {
       count: students.length,
       data: students,
     });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ message: err.message });
+  }
+});
+
+// Route for Get one STUDENT By ID
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const student = await Student.findById(id);
+
+    return res.status(200).json(student);
   } catch (err) {
     console.log(err.message);
     res.status(500).send({ message: err.message });
