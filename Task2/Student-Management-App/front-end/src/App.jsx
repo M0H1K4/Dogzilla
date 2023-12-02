@@ -1,7 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Router } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateStudent from "./pages/CreateStudent";
-import ShowStudent from "./pages/ShowStudent";
+import ShowStudent from "./pages/ShowStudents";
 import EditStudent from "./pages/EditStudent";
 import DeleteStudent from "./pages/DeleteStudent";
 
