@@ -65,6 +65,31 @@ app.get("/students", async (req, res) => {
   }
 });
 
+// Route for updating a Student
+
+app.put("/students/:id", async (req, res) => {
+  try {
+    if (!req.body.name || !req.body.secondName || !req.body.birthYear) {
+      return res.status(400).send({
+        message: "Send all requried fields: name, secondName, birthYear",
+      });
+    }
+
+    const { id } = req.params;
+
+    const result = await Student.findByIdAndUpdate(id, req.body);
+
+    if (!result) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    return res.status(200).send({ message: "Student Updated successfully" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ message: err.message });
+  }
+});
+
 mongoose
   .connect(mongoDBURL)
   .then(() => {
