@@ -36,7 +36,21 @@ app.post("/students", async (req, res) => {
   }
 });
 
-// Route for Get All bookd from DB
+// Route for Get All STUDENT from DB
+app.get("/students/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const student = await Student.findById(id);
+
+    return res.status(200).json(student);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ message: err.message });
+  }
+});
+
+// Route for Get one STUDENT By ID
 app.get("/students", async (req, res) => {
   try {
     const students = await Student.find({});
@@ -50,22 +64,6 @@ app.get("/students", async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
-
-// Route for Get one book By ID
-app.get("/students", async (req, res) => {
-    try {
-      const students = await Student.find({});
-  
-      return res.status(200).json({
-        count: students.length,
-        data: students,
-      });
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).send({ message: err.message });
-    }
-  });
-
 
 mongoose
   .connect(mongoDBURL)
