@@ -1,4 +1,4 @@
-export const PORT = 5555;
+export const PORT = 3000;
 
 export const mongoDBURL =
   "mongodb+srv://Lukinio120:yuTjtYz7d6Vaor3l@students.jipqeul.mongodb.net/Studens-Management?retryWrites=true&w=majority";
