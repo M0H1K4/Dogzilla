@@ -6,7 +6,6 @@ import { Student } from "./models/studentModel.js";
 const app = express();
 
 // Middleware for parsing req body
-
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -15,14 +14,9 @@ app.get("/", (req, res) => {
 });
 
 // Route for Save a new Student (dddddd)
-
 app.post("/students", async (req, res) => {
   try {
-    if (
-      !req.body.name ||
-      !req.body.secondName ||
-      !req.body.birthYear
-    ) {
+    if (!req.body.name || !req.body.secondName || !req.body.birthYear) {
       return res.status(400).send({
         message: "Send all required fields: name, secondName, birthYear",
       });
@@ -41,6 +35,37 @@ app.post("/students", async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
+
+// Route for Get All bookd from DB
+app.get("/students", async (req, res) => {
+  try {
+    const students = await Student.find({});
+
+    return res.status(200).json({
+      count: students.length,
+      data: students,
+    });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ message: err.message });
+  }
+});
+
+// Route for Get one book By ID
+app.get("/students", async (req, res) => {
+    try {
+      const students = await Student.find({});
+  
+      return res.status(200).json({
+        count: students.length,
+        data: students,
+      });
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send({ message: err.message });
+    }
+  });
+
 
 mongoose
   .connect(mongoDBURL)
